@@ -5,8 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Bitter", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-menu: "Lora", Georgia, serif;
+  --font-hand: "Caveat", cursive;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -73,7 +75,8 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
-  h1, h2, h3, h4 { font-family: var(--font-serif); }
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 800; letter-spacing: 0.02em; }
+  h1 { letter-spacing: 0.05em; }
 }
 
 /* Hero cross-fade */
@@ -134,3 +137,4 @@
 .chalk-text { font-family: var(--font-serif); color: var(--cream); }
 .chalk-muted { color: oklch(0.97 0.02 85 / 0.7); }
 .text-brass { color: var(--brass); }
+.chalk-hand { font-family: var(--font-hand); font-size: 1.6rem; line-height: 1; color: var(--brass); }
