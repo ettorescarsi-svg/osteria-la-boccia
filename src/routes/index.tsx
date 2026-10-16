@@ -55,9 +55,9 @@ function Index() {
           <div className="hero-overlay absolute inset-0" />
         </div>
         <div className="mx-auto max-w-3xl px-6 text-cream">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.3em] text-brass">Padova · dal cuore del Veneto</p>
+          <p className="mb-4 font-hand text-3xl text-brass">Padova · dal cuore del Veneto</p>
           <h1 className="text-5xl font-bold leading-tight sm:text-7xl">Osteria La Boccia</h1>
-          <p className="mt-4 font-serif text-xl italic sm:text-2xl">La tradizione padovana nel cuore di Padova</p>
+          <p className="mt-4 font-menu text-xl italic sm:text-2xl">La tradizione padovana nel cuore di Padova</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
             <span className="rounded-full border border-brass/50 bg-wood/40 px-4 py-2 backdrop-blur">4.5/5 ⭐ su 395+ Recensioni Google | 8.7/10 su TheFork</span>
             <span className="rounded-full border border-brass/50 bg-wood/40 px-4 py-2 backdrop-blur">20 – 30 € a persona</span>
@@ -106,14 +106,14 @@ function Index() {
         <section id="menu" className="bg-wood px-4 py-20 sm:px-6" aria-labelledby="menu-title">
           <div className="mx-auto max-w-6xl">
             <h2 id="menu-title" className="text-center text-4xl text-wood-foreground">La Lavagna dell'Osteria</h2>
-            <p className="mt-3 text-center text-wood-foreground/70">Tocca una scheda per scoprire i piatti del giorno.</p>
+            <p className="mt-3 text-center font-hand text-2xl text-brass">Tocca una scheda per scoprire i piatti del giorno.</p>
             <div className="chalkboard mt-10 rounded-xl p-4 sm:p-8">
               <div className="menu-tabs">
                 {MENU.map((cat, i) => (
                   <div key={cat.id} className="contents">
                     <input type="radio" name="menu" id={`m-${cat.id}`} className="menu-radio sr-only" defaultChecked={i === 0} />
                     <label htmlFor={`m-${cat.id}`} className="menu-tab flex cursor-pointer flex-col p-5">
-                      <span className="text-brass text-sm">0{i + 1}</span>
+                      <span className="text-brass font-hand text-2xl">n° {i + 1}</span>
                       <h3 className="menu-tab-title chalk-text mt-2 text-2xl">{cat.title}</h3>
                       <div className="menu-tab-body">
                         <div>
@@ -121,11 +121,11 @@ function Index() {
                             {cat.dishes.map((d) => (
                               <li key={d.name} className="border-b border-dashed border-cream/20 pb-4">
                                 <div className="flex items-baseline justify-between gap-4">
-                                  <span className="chalk-text text-xl">{d.name}</span>
-                                  <span className="text-brass shrink-0 font-semibold">{d.price}</span>
+                                  <span className="chalk-text text-xl font-bold">{d.name}</span>
+                                  <span className="chalk-hand shrink-0">{d.price}</span>
                                 </div>
-                                <p className="chalk-muted mt-1 text-sm">{d.desc}</p>
-                                <div className="mt-2 flex gap-2 text-xs">
+                                <p className="chalk-muted mt-1 font-menu text-base italic">{d.desc}</p>
+                                <div className="mt-2 flex gap-2 font-hand text-lg">
                                   {d.vegan && <span className="rounded-full border border-cream/40 px-2 py-0.5">🌱 Vegano</span>}
                                   {d.pick && <span className="rounded-full bg-brass px-2 py-0.5 text-accent-foreground">★ Consigliato dall'Osteria</span>}
                                 </div>
