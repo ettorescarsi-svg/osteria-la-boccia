@@ -58,10 +58,6 @@ function Index() {
           <p className="mb-4 font-hand text-3xl text-brass">Padova · dal cuore del Veneto</p>
           <h1 className="text-5xl font-bold leading-tight sm:text-7xl">Osteria La Boccia</h1>
           <p className="mt-4 font-menu text-xl italic sm:text-2xl">La tradizione padovana nel cuore di Padova</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
-            <span className="rounded-full border border-brass/50 bg-wood/40 px-4 py-2 backdrop-blur">4.5/5 ⭐ su 395+ Recensioni Google | 8.7/10 su TheFork</span>
-            <span className="rounded-full border border-brass/50 bg-wood/40 px-4 py-2 backdrop-blur">20 – 30 € a persona</span>
-          </div>
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <a href={THEFORK} target="_blank" rel="noopener" className="rounded-md bg-primary px-8 py-4 font-semibold text-primary-foreground shadow-card transition hover:brightness-110">Prenota un Tavolo</a>
             <a href="#menu" className="rounded-md border border-cream/70 px-8 py-4 font-semibold transition hover:bg-cream/10">Scopri il Menu</a>
