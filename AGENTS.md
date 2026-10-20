@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep restaurant menu data in the shared menu module and render each dish's complete name in one heading, so ingredient details are never hidden in secondary text.

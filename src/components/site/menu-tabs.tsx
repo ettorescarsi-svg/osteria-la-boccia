@@ -11,11 +11,10 @@ function DishCard({ dish, index }: { dish: Dish; index: number }) {
       data-pick={dish.pick ? "" : undefined}
       style={{ "--i": index } as CSSProperties}
     >
-      <div className="flex items-baseline justify-between gap-6">
-        <h3 className="dish-name">{dish.name}</h3>
-      <p className="dish-price">{dish.price}</p>
+      <div className="flex items-baseline justify-between gap-3 sm:gap-6">
+        <h3 className="dish-name">{dish.name}{dish.desc ? ` — ${dish.desc}` : ""}</h3>
+        <p className="dish-price">{dish.price}</p>
       </div>
-      {dish.desc && <p className="dish-desc">{dish.desc}</p>}
       {(dish.pick || dish.veg) && (
         <ul className="mt-2 flex flex-wrap gap-2" aria-label="Caratteristiche del piatto">
           {dish.pick && (

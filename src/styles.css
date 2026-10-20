@@ -348,11 +348,15 @@
     color: var(--cream);
   }
   .dish-name {
+    min-width: 0;
     font-size: 1.4rem;
-    line-height: 1.15;
+    line-height: 1.3;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
   }
   .dish-price {
     flex: none;
+    white-space: nowrap;
     font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 600;
