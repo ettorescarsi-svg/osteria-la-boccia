@@ -78,11 +78,6 @@ export const MENU: MenuCategory[] = [
         price: "19,00 €",
         pick: true,
       },
-      {
-        name: "Leggermente scottata",
-        desc: "Con cipolla caramellata e caprino",
-        price: "18,00 €",
-      },
     ],
   },
   {
@@ -95,7 +90,12 @@ export const MENU: MenuCategory[] = [
         price: "18,00 €",
       },
       {
-        name: "La leggermente scottata",
+        name: "La leggermente scottata al caprino",
+        desc: "Con cipolla caramellata e caprino",
+        price: "18,00 €",
+      },
+      {
+        name: "La leggermente scottata al cacio e guanciale",
         desc: "Con crema cacio e guanciale croccante",
         price: "18,00 €",
       },
