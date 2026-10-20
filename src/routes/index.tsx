@@ -1,211 +1,468 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Phone } from "lucide-react";
+import type { CSSProperties } from "react";
+
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
+import { MenuTabs } from "@/components/site/menu-tabs";
+import { QrCode } from "@/components/site/qr-code";
 
 const THEFORK = "https://www.thefork.it/search?cityId=&q=Osteria%20La%20Boccia%20Padova";
 const MAPS = "https://www.google.com/maps/dir/?api=1&destination=Via+Soncin+39+35141+Padova";
+const MAP_EMBED = "https://www.google.com/maps?q=Via+Soncin+39,+35141+Padova&output=embed";
 const TEL = "tel:+390497353604";
+const TEL_LABEL = "049 735 3604";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Osteria La Boccia — Cucina tipica padovana in Via Soncin" },
-      { name: "description", content: "Osteria tipica nel centro di Padova: piatti della tradizione veneta, aperitivi e vino. 20–30 € a persona. Prenota su TheFork." },
+      {
+        name: "description",
+        content:
+          "Osteria tipica nel centro di Padova: piatti della tradizione veneta, aperitivi e vino. 20–30 € a persona. Prenota su TheFork.",
+      },
       { property: "og:title", content: "Osteria La Boccia — Padova" },
-      { property: "og:description", content: "La tradizione padovana nel cuore di Padova. Prenota un tavolo in Via Soncin, 39." },
+      {
+        property: "og:description",
+        content: "La tradizione padovana nel cuore di Padova. Prenota un tavolo in Via Soncin, 39.",
+      },
     ],
   }),
   component: Index,
 });
 
-type Dish = { name: string; desc: string; price: string; vegan?: boolean; pick?: boolean };
-const MENU: { id: string; title: string; dishes: Dish[] }[] = [
-  { id: "primi", title: "I Primi della Tradizione", dishes: [
-    { name: "Bigoli all'anatra", desc: "Bigoli al torchio con ragù d'anatra dei Colli Euganei", price: "12 €", pick: true },
-    { name: "Risotto al radicchio", desc: "Radicchio tardivo di Treviso e Monte Veronese", price: "13 €" },
-    { name: "Pasta e fagioli", desc: "Fagioli di Lamon, rosmarino e olio del Garda", price: "10 €", vegan: true },
-  ]},
-  { id: "secondi", title: "I Secondi & Contorni", dishes: [
-    { name: "Baccalà alla vicentina", desc: "Con polenta di mais Marano morbida", price: "16 €", pick: true },
-    { name: "Fegato alla veneziana", desc: "Cipolla bianca stufata lentamente", price: "14 €" },
-    { name: "Verdure di stagione", desc: "Dagli orti della bassa padovana, alla griglia", price: "6 €", vegan: true },
-  ]},
-  { id: "aperitivi", title: "Aperitivi & Happy Hour", dishes: [
-    { name: "Spritz padovano", desc: "Aperol, prosecco e seltz, come vuole la tradizione", price: "4 €", pick: true },
-    { name: "Cicchetti misti", desc: "Baccalà mantecato, sarde in saor, polpette", price: "9 €" },
-    { name: "Tagliere della Boccia", desc: "Salumi e formaggi veneti, mostarda e pane", price: "14 €" },
-  ]},
-  { id: "dolci", title: "Opzioni Vegane & Dessert", dishes: [
-    { name: "Polenta e funghi", desc: "Funghi chiodini trifolati e prezzemolo", price: "11 €", vegan: true },
-    { name: "Tiramisù della casa", desc: "Mascarpone fresco e caffè, ricetta della nonna", price: "6 €", pick: true },
-    { name: "Torta di mele vegana", desc: "Mele del Veneto e cannella", price: "5 €", vegan: true },
-  ]},
-];
+/** Ordine di comparsa: ritardo scaglionato letto dalle animazioni CSS (.rise / .reveal). */
+const step = (i: number) => ({ "--i": i }) as CSSProperties;
+
+function ExternalHint() {
+  return <span className="sr-only"> (si apre in una nuova scheda)</span>;
+}
 
 function Index() {
   return (
-    <div className="min-h-screen">
-      {/* HERO */}
-      <header className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden text-center">
-        <div className="absolute inset-0 -z-10" aria-hidden="true">
-          {[hero1, hero2, hero3].map((src) => (
-            <div key={src} className="hero-slide" style={{ backgroundImage: `url(${src})` }} />
-          ))}
-          <div className="hero-overlay absolute inset-0" />
-        </div>
-        <div className="mx-auto max-w-3xl px-6 text-cream">
-          <p className="mb-4 font-hand text-3xl text-brass">Padova · dal cuore del Veneto</p>
-          <h1 className="text-5xl font-bold leading-tight sm:text-7xl">Osteria La Boccia</h1>
-          <p className="mt-4 font-menu text-xl italic sm:text-2xl">La tradizione padovana nel cuore di Padova</p>
-          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-            <a href={THEFORK} target="_blank" rel="noopener" className="rounded-md bg-primary px-8 py-4 font-semibold text-primary-foreground shadow-card transition hover:brightness-110">Prenota un Tavolo</a>
-            <a href="#menu" className="rounded-md border border-cream/70 px-8 py-4 font-semibold transition hover:bg-cream/10">Scopri il Menu</a>
-          </div>
-        </div>
-      </header>
+    <div>
+      <a
+        href="#contenuto"
+        className="sr-only z-50 rounded-full bg-cream px-5 py-3 font-semibold text-ink focus:not-sr-only focus:absolute focus:left-3 focus:top-3"
+      >
+        Vai al contenuto
+      </a>
 
-      <main>
-        {/* BENTO */}
-        <section className="mx-auto max-w-6xl px-6 py-20" aria-labelledby="servizi">
-          <h2 id="servizi" className="mb-10 text-center text-4xl text-primary">L'osteria, in breve</h2>
-          <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
-            <article className="rounded-xl bg-primary p-8 text-primary-foreground shadow-card md:col-span-2">
-              <span className="text-3xl" aria-hidden>🍷</span>
-              <h3 className="mt-4 text-2xl">Happy Hour & Aperitivo</h3>
-              <p className="mt-2 opacity-85">Spritz, ombre di vino e cicchetti al banco, come nelle vere osterie venete.</p>
-            </article>
-            <article className="rounded-xl border bg-card p-8 shadow-card">
-              <span className="text-3xl" aria-hidden>🚪</span>
-              <h3 className="mt-4 text-2xl">Sala Privata</h3>
-              <p className="mt-2 text-muted-foreground">Per cene di famiglia, compleanni e serate tra amici.</p>
-            </article>
-            <article className="rounded-xl border bg-card p-8 shadow-card">
-              <span className="text-3xl" aria-hidden>🌿</span>
-              <h3 className="mt-4 text-2xl">Vegani & Vegetariani</h3>
-              <p className="mt-2 text-muted-foreground">Piatti della tradizione ripensati con l'orto.</p>
-            </article>
-            <article className="rounded-xl bg-wood p-8 text-wood-foreground shadow-card">
-              <span className="text-3xl" aria-hidden>📍</span>
-              <h3 className="mt-4 text-2xl">Dove</h3>
-              <address className="mt-2 not-italic opacity-85">Via Soncin, 39<br />35141 Padova (PD)</address>
-            </article>
-            <a href={TEL} className="group rounded-xl border-2 border-brass bg-card p-8 shadow-card transition hover:bg-secondary">
-              <span className="text-3xl" aria-hidden>📞</span>
-              <h3 className="mt-4 text-2xl">Chiamaci</h3>
-              <p className="mt-2 text-xl font-semibold text-primary group-hover:underline">049 735 3604</p>
+      {/* HERO */}
+      <div id="top" className="relative grid min-h-[100svh] lg:grid-cols-[5fr_6fr]">
+        <header className="hero-header surface-dark">
+          <div className="flex items-center justify-between gap-4 px-5 py-5 sm:px-8 lg:px-12">
+            <a href="#top" className="font-serif text-xl font-semibold no-underline">
+              La Boccia
             </a>
+            <nav
+              aria-label="Principale"
+              className="hidden items-center gap-7 md:flex lg:hidden xl:flex"
+            >
+              <a href="#menu" className="no-underline hover:underline">
+                Menu
+              </a>
+              <a href="#osteria" className="no-underline hover:underline">
+                L'osteria
+              </a>
+              <a href="#dove" className="no-underline hover:underline">
+                Dove
+              </a>
+            </nav>
+            <a
+              href={THEFORK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-sm"
+            >
+              Prenota
+              <ExternalHint />
+            </a>
+          </div>
+        </header>
+
+        {/* Le stesse foto, descritte per esteso, tornano nella sezione "L'osteria": qui sono decorative */}
+        <div
+          className="relative order-1 h-[58svh] overflow-hidden bg-wine lg:order-2 lg:h-auto"
+          aria-hidden="true"
+        >
+          <div className="hero-slide">
+            <img src={hero3} alt="" width={960} height={960} fetchPriority="high" />
+          </div>
+          <div className="hero-slide">
+            <img src={hero1} alt="" width={1000} height={1333} />
+          </div>
+          <div className="hero-slide">
+            <img src={hero2} alt="" width={1000} height={1142} />
+          </div>
+          <div className="hero-scrim" />
+        </div>
+
+        <div className="surface-dark order-2 flex flex-col justify-end bg-wine px-5 pb-12 pt-14 sm:px-8 lg:order-1 lg:px-12 lg:pb-16 lg:pt-36">
+          <h1
+            className="rise text-[length:clamp(3.25rem,6.8vw,5.75rem)] leading-[0.95] tracking-[-0.025em]"
+            style={step(0)}
+          >
+            Osteria La Boccia
+          </h1>
+          <p
+            className="rise mt-6 max-w-[36ch] text-xl text-cream/90 sm:text-[1.35rem]"
+            style={step(1)}
+          >
+            Bigoli all'anatra, baccalà con la polenta e un'ombra di vino: la cucina padovana di una
+            volta, in una vera osteria del centro.
+          </p>
+          <div className="rise mt-9 flex flex-col gap-3 sm:flex-row" style={step(2)}>
+            <a href={THEFORK} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+              Prenota un Tavolo
+              <ExternalHint />
+            </a>
+            <a href="#menu" className="btn btn-on-wine">
+              Consulta il Menu
+            </a>
+          </div>
+          <p className="rise mt-9 max-w-[44ch] text-base text-cream/75" style={step(3)}>
+            Via Soncin, 39, Padova. Aperti ogni sera dalle 19:00, il fine settimana anche a pranzo.
+          </p>
+        </div>
+      </div>
+
+      <main id="contenuto" tabIndex={-1} className="outline-none">
+        {/* MENU */}
+        <section id="menu" aria-labelledby="menu-title" className="py-24 lg:py-36">
+          <div className="frame grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-4">
+              <div className="lg:sticky lg:top-12">
+                <h2
+                  id="menu-title"
+                  className="reveal text-[length:clamp(2.75rem,5vw,4rem)]"
+                  style={step(0)}
+                >
+                  Il menu
+                </h2>
+                <p className="reveal mt-5 max-w-[36ch] text-lg" style={step(1)}>
+                  Piatti della tradizione padovana e veneta, con ingredienti del territorio. Il
+                  fondo bordeaux segna i piatti della casa; Veg indica un piatto vegano o
+                  vegetariano.
+                </p>
+                <p className="reveal mt-4 max-w-[36ch] text-ink-soft" style={step(2)}>
+                  Hai allergie o intolleranze? Dillo a chi ti serve al tavolo.
+                </p>
+              </div>
+            </div>
+            <div className="reveal min-w-0 lg:col-span-8" style={step(1)}>
+              <MenuTabs />
+            </div>
           </div>
         </section>
 
-        {/* MENU */}
-        <section id="menu" className="bg-wood px-4 py-20 sm:px-6" aria-labelledby="menu-title">
-          <div className="mx-auto max-w-6xl">
-            <h2 id="menu-title" className="text-center text-4xl text-wood-foreground">La Lavagna dell'Osteria</h2>
-            <p className="mt-3 text-center font-hand text-2xl text-brass">Tocca una scheda per scoprire i piatti del giorno.</p>
-            <div className="chalkboard mt-10 rounded-xl p-4 sm:p-8">
-              <div className="menu-tabs">
-                {MENU.map((cat, i) => (
-                  <div key={cat.id} className="contents">
-                    <input type="radio" name="menu" id={`m-${cat.id}`} className="menu-radio sr-only" defaultChecked={i === 0} />
-                    <label htmlFor={`m-${cat.id}`} className="menu-tab flex cursor-pointer flex-col p-5">
-                      <span className="text-brass font-hand text-2xl">n° {i + 1}</span>
-                      <h3 className="menu-tab-title chalk-text mt-2 text-2xl">{cat.title}</h3>
-                      <div className="menu-tab-body">
-                        <div>
-                          <ul className="mt-6 space-y-5">
-                            {cat.dishes.map((d) => (
-                              <li key={d.name} className="border-b border-dashed border-cream/20 pb-4">
-                                <div className="flex items-baseline justify-between gap-4">
-                                  <span className="chalk-text text-xl font-bold">{d.name}</span>
-                                  <span className="chalk-hand shrink-0">{d.price}</span>
-                                </div>
-                                <p className="chalk-muted mt-1 font-menu text-base italic">{d.desc}</p>
-                                <div className="mt-2 flex gap-2 font-hand text-lg">
-                                  {d.vegan && <span className="rounded-full border border-cream/40 px-2 py-0.5">🌱 Vegano</span>}
-                                  {d.pick && <span className="rounded-full bg-brass px-2 py-0.5 text-accent-foreground">★ Consigliato dall'Osteria</span>}
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </label>
-                  </div>
-                ))}
+        {/* L'OSTERIA */}
+        <section id="osteria" aria-labelledby="osteria-title" className="bg-sand py-24 lg:py-36">
+          <div className="frame grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <h2
+                id="osteria-title"
+                className="reveal text-[length:clamp(2.5rem,4.6vw,3.75rem)]"
+                style={step(0)}
+              >
+                Un'osteria vera, nel cuore di Padova
+              </h2>
+              <p className="reveal mt-6 max-w-[44ch] text-lg" style={step(1)}>
+                La cucina è quella veneta di una volta: bigoli al torchio, baccalà con la polenta,
+                un tiramisù come quello della nonna.
+              </p>
+              <dl className="mt-10 space-y-7">
+                <div className="reveal" style={step(2)}>
+                  <dt className="font-serif text-2xl font-semibold">Aperitivo e happy hour</dt>
+                  <dd className="mt-1.5 max-w-[44ch] text-ink-soft">
+                    Spritz, ombre di vino e cicchetti al banco, come nelle vere osterie venete.
+                  </dd>
+                </div>
+                <div className="reveal" style={step(3)}>
+                  <dt className="font-serif text-2xl font-semibold">Sala privata</dt>
+                  <dd className="mt-1.5 max-w-[44ch] text-ink-soft">
+                    Per cene di famiglia, compleanni e serate tra amici.
+                  </dd>
+                </div>
+                <div className="reveal" style={step(4)}>
+                  <dt className="font-serif text-2xl font-semibold">Vegani e vegetariani</dt>
+                  <dd className="mt-1.5 max-w-[44ch] text-ink-soft">
+                    Piatti della tradizione ripensati con l'orto.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="grid grid-cols-6 gap-3 sm:gap-4 lg:col-span-7">
+              <figure className="tile reveal col-span-6 aspect-[5/4] sm:col-span-4 sm:aspect-square">
+                <img
+                  src={hero3}
+                  alt="Tavolini nel cortile dell'osteria, con fiori nelle bottiglie, mattoni a vista e ciottoli"
+                  width={960}
+                  height={960}
+                  loading="lazy"
+                />
+              </figure>
+              <figure
+                className="tile reveal col-span-3 aspect-[3/4] sm:col-span-2 sm:mt-16 sm:aspect-[2/3]"
+                style={step(1)}
+              >
+                <img
+                  src={hero1}
+                  alt="Bigoli con ragù in un piatto bianco"
+                  width={1000}
+                  height={1333}
+                  loading="lazy"
+                  style={{ objectPosition: "50% 62%" }}
+                />
+              </figure>
+              <figure className="tile reveal col-span-3 aspect-[4/5] sm:col-span-3" style={step(1)}>
+                <img
+                  src={hero2}
+                  alt="Salumi e formaggi veneti serviti su un tagliere di legno"
+                  width={1000}
+                  height={1142}
+                  loading="lazy"
+                />
+              </figure>
+              <div
+                className="reveal surface-dark col-span-6 flex flex-col justify-between gap-8 rounded-lg bg-wine p-7 sm:col-span-3 sm:p-8"
+                style={step(2)}
+              >
+                <p className="font-serif text-[length:clamp(2.75rem,5vw,3.75rem)] font-semibold leading-none">
+                  20–30 €
+                </p>
+                <p className="text-lg text-cream/85">a persona, in media.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ORARI */}
-        <section className="mx-auto grid max-w-6xl gap-8 px-6 py-20 md:grid-cols-2" aria-labelledby="orari">
-          <div>
-            <h2 id="orari" className="text-4xl text-primary">Orari di apertura</h2>
-            <dl className="mt-8 divide-y rounded-xl border bg-card">
-              <div className="p-6">
-                <dt className="font-serif text-xl">Venerdì, Sabato, Domenica</dt>
-                <dd className="mt-1 text-muted-foreground">12:00 – 14:30 &nbsp;|&nbsp; 19:00 – 23:00</dd>
+        {/* ORARI E PRENOTAZIONI */}
+        <section
+          id="orari"
+          aria-labelledby="orari-title"
+          className="surface-dark bg-wine py-24 lg:py-36"
+        >
+          <div className="frame">
+            <h2
+              id="orari-title"
+              className="reveal text-[length:clamp(2.5rem,5vw,4rem)]"
+              style={step(0)}
+            >
+              Orari e prenotazioni
+            </h2>
+            <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:gap-16">
+              <dl className="space-y-10">
+                <div className="reveal" style={step(1)}>
+                  <dt className="text-lg text-cream/80">Lunedì – Giovedì</dt>
+                  <dd className="mt-1 font-serif text-3xl font-semibold sm:text-4xl">
+                    19:00 – 23:00
+                  </dd>
+                </div>
+                <div className="reveal" style={step(2)}>
+                  <dt className="text-lg text-cream/80">Venerdì, sabato e domenica</dt>
+                  <dd className="mt-1 font-serif text-3xl font-semibold sm:text-4xl">
+                    12:00 – 14:30
+                    <br />
+                    19:00 – 23:00
+                  </dd>
+                </div>
+              </dl>
+
+              <div
+                className="reveal rounded-lg bg-cream p-8 text-ink sm:p-10"
+                style={{ ...step(2), "--focus": "var(--clay-deep)" } as CSSProperties}
+              >
+                <h3 className="text-3xl">Riserva il tuo tavolo</h3>
+                <p className="mt-3 max-w-[40ch] text-lg">
+                  Prenota online in pochi secondi, oppure chiamaci per l'ultimo minuto.
+                </p>
+                <a
+                  href={THEFORK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary mt-8 w-full sm:w-auto"
+                >
+                  Prenota su TheFork
+                  <ExternalHint />
+                </a>
+                <a
+                  href={TEL}
+                  className="mt-7 flex items-center gap-3 font-serif text-3xl font-semibold no-underline"
+                  aria-label={`Chiama l'osteria al ${TEL_LABEL}`}
+                >
+                  <Phone size={26} strokeWidth={2} aria-hidden="true" />
+                  {TEL_LABEL}
+                </a>
               </div>
-              <div className="p-6">
-                <dt className="font-serif text-xl">Lunedì – Giovedì</dt>
-                <dd className="mt-1 text-muted-foreground">19:00 – 23:00</dd>
-              </div>
-            </dl>
-          </div>
-          <div className="flex flex-col justify-center rounded-xl bg-primary p-10 text-primary-foreground shadow-card">
-            <h3 className="text-3xl">Riserva il tuo tavolo</h3>
-            <p className="mt-3 opacity-85">Prenota online in pochi secondi, oppure chiamaci per l'ultimo minuto.</p>
-            <a href={THEFORK} target="_blank" rel="noopener" className="mt-8 rounded-md bg-brass px-6 py-4 text-center font-semibold text-accent-foreground transition hover:brightness-110">Prenota Subito con TheFork</a>
-            <a href={TEL} className="mt-4 text-center underline-offset-4 hover:underline">Last-minute? Chiama lo 049 735 3604</a>
+            </div>
           </div>
         </section>
 
-        {/* MAPPA */}
-        <section className="mx-auto max-w-6xl px-6 pb-20" aria-labelledby="dove">
-          <h2 id="dove" className="text-4xl text-primary">Dove siamo</h2>
-          <div className="mt-8 overflow-hidden rounded-xl border-8 border-wood shadow-card">
-            <iframe
-              title="Mappa Osteria La Boccia"
-              src="https://www.google.com/maps?q=Via+Soncin+39,+35141+Padova&output=embed"
-              className="h-96 w-full sepia-[.35]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+        {/* DOVE SIAMO */}
+        <section id="dove" aria-labelledby="dove-title" className="py-24 lg:py-36">
+          <div className="frame grid gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="tile reveal h-[22rem] lg:col-span-7 lg:h-[30rem]">
+              <iframe
+                title="Mappa con la posizione dell'Osteria La Boccia in Via Soncin 39, Padova"
+                src={MAP_EMBED}
+                className="map-frame"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="flex flex-col justify-center lg:col-span-5">
+              <h2
+                id="dove-title"
+                className="reveal text-[length:clamp(2.5rem,5vw,4rem)]"
+                style={step(1)}
+              >
+                Dove siamo
+              </h2>
+              <address className="reveal mt-6 text-xl not-italic" style={step(2)}>
+                Via Soncin, 39
+                <br />
+                35141 Padova (PD)
+              </address>
+              <p className="reveal mt-3 max-w-[36ch] text-ink-soft" style={step(2)}>
+                Nel centro di Padova. Apri le indicazioni dal telefono e arrivi a piedi o in auto.
+              </p>
+              <div className="reveal mt-8 flex flex-col gap-3 sm:flex-row" style={step(3)}>
+                <a
+                  href={MAPS}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                >
+                  Indicazioni stradali
+                  <ExternalHint />
+                </a>
+                <a href={TEL} className="btn btn-on-light">
+                  <Phone size={18} strokeWidth={2} aria-hidden="true" />
+                  Chiama
+                </a>
+              </div>
+            </div>
           </div>
-          <a href={MAPS} target="_blank" rel="noopener" className="mt-6 inline-block rounded-md bg-wood px-6 py-3 font-semibold text-wood-foreground transition hover:brightness-125">Apri in Mappe</a>
         </section>
       </main>
 
-      <footer className="bg-wood text-wood-foreground">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <p className="font-serif text-2xl">Osteria La Boccia</p>
-            <p className="mt-2 text-sm opacity-70">La tradizione padovana nel cuore di Padova.</p>
+      {/* FOOTER */}
+      <footer className="surface-dark bg-wood pb-32 pt-20 md:pb-14">
+        <div className="frame">
+          <p className="font-serif text-[length:clamp(2.5rem,8vw,6rem)] font-semibold leading-none tracking-[-0.02em]">
+            Osteria La Boccia
+          </p>
+          <p className="mt-5 max-w-[40ch] text-lg text-cream/80">
+            La tradizione padovana nel cuore di Padova.
+          </p>
+
+          <div className="mt-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            <nav aria-label="Link rapidi">
+              <h2 className="font-serif text-xl font-semibold">Link rapidi</h2>
+              <ul className="mt-4 space-y-2 text-cream/85">
+                <li>
+                  <a href="#menu" className="hover:underline">
+                    Menu
+                  </a>
+                </li>
+                <li>
+                  <a href="#osteria" className="hover:underline">
+                    L'osteria
+                  </a>
+                </li>
+                <li>
+                  <a href="#orari" className="hover:underline">
+                    Orari
+                  </a>
+                </li>
+                <li>
+                  <a href="#dove" className="hover:underline">
+                    Dove siamo
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={THEFORK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Prenota
+                    <ExternalHint />
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <div>
+              <h2 className="font-serif text-xl font-semibold">Orari</h2>
+              <dl className="mt-4 space-y-3 text-cream/85">
+                <div>
+                  <dt>Lunedì – Giovedì</dt>
+                  <dd>19:00 – 23:00</dd>
+                </div>
+                <div>
+                  <dt>Venerdì – Domenica</dt>
+                  <dd>12:00 – 14:30 · 19:00 – 23:00</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div>
+              <h2 className="font-serif text-xl font-semibold">Contatti</h2>
+              <address className="mt-4 text-cream/85 not-italic">
+                Via Soncin, 39
+                <br />
+                35141 Padova (PD)
+              </address>
+              <a
+                href={TEL}
+                className="mt-3 inline-block font-serif text-2xl font-semibold no-underline hover:underline"
+                aria-label={`Chiama l'osteria al ${TEL_LABEL}`}
+              >
+                {TEL_LABEL}
+              </a>
+            </div>
+
+            <div>
+              <h2 className="font-serif text-xl font-semibold">Il menu sul telefono</h2>
+              <QrCode className="mt-4 aspect-square w-36 rounded-lg bg-cream" />
+              <p className="mt-3 max-w-[28ch] text-cream/85">
+                Inquadra il codice con la fotocamera per aprire il menu.
+              </p>
+              <a href="#menu" className="mt-2 inline-block font-semibold underline">
+                Apri il menu qui
+              </a>
+            </div>
           </div>
-          <nav aria-label="Link rapidi" className="text-sm">
-            <p className="text-brass mb-3 font-semibold">Link rapidi</p>
-            <ul className="space-y-2 opacity-85">
-              <li><a href="#menu" className="hover:underline">Menu</a></li>
-              <li><a href="#orari" className="hover:underline">Orari</a></li>
-              <li><a href={THEFORK} className="hover:underline">Prenota</a></li>
-            </ul>
-          </nav>
-          <div className="text-sm opacity-85">
-            <p className="text-brass mb-3 font-semibold">Orari</p>
-            <p>Ven–Dom: 12–14:30 · 19–23</p>
-            <p>Lun–Gio: 19–23</p>
-          </div>
-          <div className="text-sm opacity-85">
-            <p className="text-brass mb-3 font-semibold">Contatti</p>
-            <address className="not-italic">Via Soncin, 39, 35141 Padova (PD)</address>
-            <a href={TEL} className="hover:underline">049 735 3604</a>
-          </div>
-        </div>
-        <div className="border-t border-wood-foreground/15 px-6 py-5 text-center text-xs opacity-60">
-          © {new Date().getFullYear()} Osteria La Boccia · Tutti i diritti riservati · P.IVA da definire
+
+          <p className="mt-16 text-sm text-cream/70">
+            © {new Date().getFullYear()} Osteria La Boccia · Tutti i diritti riservati · P.IVA da
+            definire
+          </p>
         </div>
       </footer>
+
+      {/* Barra rapida per chi arriva da telefono */}
+      <div className="surface-dark fixed inset-x-0 bottom-0 z-40 flex gap-2 bg-ink p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
+        <a href={TEL} className="btn btn-on-wine flex-1">
+          <Phone size={18} strokeWidth={2} aria-hidden="true" />
+          Chiama
+        </a>
+        <a
+          href={THEFORK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-primary flex-1"
+        >
+          Prenota
+          <ExternalHint />
+        </a>
+      </div>
     </div>
   );
 }
