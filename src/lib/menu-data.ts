@@ -1,6 +1,7 @@
 export type Dish = {
   name: string;
-  desc: string;
+  /** Nota sugli ingredienti, facoltativa */
+  desc?: string;
   price: string;
   /** Piatto vegano o vegetariano */
   veg?: boolean;
@@ -14,29 +15,51 @@ export type MenuCategory = {
   dishes: Dish[];
 };
 
-// NOTE: i piatti segnati "da confermare" sono esempi inseriti per completare le schede
-// Dolci e Vini: nomi e prezzi vanno verificati con l'osteria prima della pubblicazione.
+// Menu reale dell'osteria (fornito dal titolare).
+// NOTE: le schede "Aperitivo" e "Vini" sono ancora esempi da verificare con l'osteria:
+// i prezzi del tavolo e della carta dei vini vanno confermati prima della pubblicazione.
 export const MENU: MenuCategory[] = [
+  {
+    id: "antipasti",
+    label: "Antipasti",
+    dishes: [
+      {
+        name: "Antipasto veneziano",
+        desc: "Sarde in saor, baccalà mantecato e alici marinate",
+        price: "14,00 €",
+        pick: true,
+      },
+      {
+        name: "Tagliere salumi e formaggi",
+        desc: "Selezione La Boccia",
+        price: "15,00 €",
+      },
+      {
+        name: "Cipolla arrostita",
+        desc: "Crema di caprino, acciughe del Cantabrico e mandorle",
+        price: "13,00 €",
+      },
+    ],
+  },
   {
     id: "primi",
     label: "Primi",
     dishes: [
       {
-        name: "Bigoli all'anatra",
-        desc: "Bigoli al torchio con ragù d'anatra dei Colli Euganei",
-        price: "12 €",
-        pick: true,
-      },
-      {
-        name: "Risotto al radicchio",
-        desc: "Radicchio tardivo di Treviso e Monte Veronese",
-        price: "13 €",
-      },
-      {
-        name: "Pasta e fagioli",
-        desc: "Fagioli di Lamon, rosmarino e olio del Garda",
-        price: "10 €",
+        name: "Paccheri con crema di zucchine",
+        desc: "Basilico e mandorle",
+        price: "14,00 €",
         veg: true,
+      },
+      {
+        name: "Paccheri cacio e pepe",
+        desc: "Al profumo di limone",
+        price: "14,00 €",
+        veg: true,
+      },
+      {
+        name: "Fettuccine al ragù di cortile",
+        price: "15,00 €",
       },
     ],
   },
@@ -45,26 +68,51 @@ export const MENU: MenuCategory[] = [
     label: "Secondi",
     dishes: [
       {
+        name: "Faraona arrosto",
+        desc: "Con patate",
+        price: "18,00 €",
+      },
+      {
         name: "Baccalà alla vicentina",
-        desc: "Con polenta di mais Marano morbida",
-        price: "16 €",
+        desc: "Con polenta",
+        price: "19,00 €",
         pick: true,
       },
       {
-        name: "Fegato alla veneziana",
-        desc: "Cipolla bianca stufata lentamente",
-        price: "14 €",
+        name: "Leggermente scottata",
+        desc: "Con cipolla caramellata e caprino",
+        price: "18,00 €",
+      },
+    ],
+  },
+  {
+    id: "tartare",
+    label: "Le nostre tartare",
+    dishes: [
+      {
+        name: "La cruda",
+        desc: "Sale, pepe, tabasco, worcestershire, senape, trito di capperi, acciughe, olive, cipolla e tuorlo",
+        price: "18,00 €",
       },
       {
-        name: "Polenta e funghi",
-        desc: "Funghi chiodini trifolati e prezzemolo",
-        price: "11 €",
+        name: "La leggermente scottata",
+        desc: "Con crema cacio e guanciale croccante",
+        price: "18,00 €",
+      },
+    ],
+  },
+  {
+    id: "contorni",
+    label: "Contorni",
+    dishes: [
+      {
+        name: "Erbette spadellate",
+        price: "6,00 €",
         veg: true,
       },
       {
-        name: "Verdure di stagione",
-        desc: "Dagli orti della bassa padovana, alla griglia",
-        price: "6 €",
+        name: "Patate al forno",
+        price: "6,00 €",
         veg: true,
       },
     ],
@@ -74,23 +122,31 @@ export const MENU: MenuCategory[] = [
     label: "Dolci",
     dishes: [
       {
-        name: "Tiramisù della casa",
-        desc: "Mascarpone fresco e caffè, ricetta della nonna",
-        price: "6 €",
+        name: "Dolci del giorno fatti in casa",
+        price: "6,00 €",
+      },
+    ],
+  },
+  {
+    id: "aperitivo",
+    label: "Aperitivo",
+    dishes: [
+      // da confermare: non arriva dal menu del titolare
+      {
+        name: "Spritz padovano",
+        desc: "Aperol, prosecco e seltz, come vuole la tradizione",
+        price: "4 €",
         pick: true,
       },
       {
-        name: "Torta di mele vegana",
-        desc: "Mele del Veneto e cannella",
-        price: "5 €",
-        veg: true,
+        name: "Cicchetti misti",
+        desc: "Baccalà mantecato, sarde in saor, polpette",
+        price: "9 €",
       },
-      // da confermare
       {
-        name: "Zaleti con vin santo",
-        desc: "Biscotti veneti di farina di mais e uvetta, da inzuppare",
-        price: "6 €",
-        veg: true,
+        name: "Tagliere della Boccia",
+        desc: "Salumi e formaggi veneti, mostarda e pane",
+        price: "14 €",
       },
     ],
   },
@@ -119,28 +175,6 @@ export const MENU: MenuCategory[] = [
         name: "Rosso dei Colli Euganei",
         desc: "Corpo pieno, da abbinare a bigoli e fegato",
         price: "5 €",
-      },
-    ],
-  },
-  {
-    id: "aperitivo",
-    label: "Aperitivo",
-    dishes: [
-      {
-        name: "Spritz padovano",
-        desc: "Aperol, prosecco e seltz, come vuole la tradizione",
-        price: "4 €",
-        pick: true,
-      },
-      {
-        name: "Cicchetti misti",
-        desc: "Baccalà mantecato, sarde in saor, polpette",
-        price: "9 €",
-      },
-      {
-        name: "Tagliere della Boccia",
-        desc: "Salumi e formaggi veneti, mostarda e pane",
-        price: "14 €",
       },
     ],
   },

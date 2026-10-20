@@ -13,9 +13,9 @@ function DishCard({ dish, index }: { dish: Dish; index: number }) {
     >
       <div className="flex items-baseline justify-between gap-6">
         <h3 className="dish-name">{dish.name}</h3>
-        <p className="dish-price">{dish.price}</p>
+      <p className="dish-price">{dish.price}</p>
       </div>
-      <p className="dish-desc">{dish.desc}</p>
+      {dish.desc && <p className="dish-desc">{dish.desc}</p>}
       {(dish.pick || dish.veg) && (
         <ul className="mt-2 flex flex-wrap gap-2" aria-label="Caratteristiche del piatto">
           {dish.pick && (
@@ -48,7 +48,7 @@ export function MenuTabs() {
     const active = listRef.current?.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
     if (!bar || !active) return;
     bar.style.transform = `translateX(${active.offsetLeft}px) scaleX(${active.offsetWidth / 100})`;
-    bar.dataset.ready = "true";
+    bar.dataset["ready"] = "true";
   }, []);
 
   useEffect(() => {

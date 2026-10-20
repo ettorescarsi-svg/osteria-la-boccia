@@ -218,7 +218,10 @@ function Index() {
                   style={{ objectPosition: "50% 62%" }}
                 />
               </figure>
-              <figure className="tile reveal col-span-3 aspect-[4/5] sm:col-span-3" style={step(1)}>
+              <figure
+                className="tile reveal col-span-3 aspect-[4/5] sm:col-span-6 sm:aspect-[16/9]"
+                style={step(1)}
+              >
                 <img
                   src={hero2}
                   alt="Salumi e formaggi veneti serviti su un tagliere di legno"
@@ -227,15 +230,6 @@ function Index() {
                   loading="lazy"
                 />
               </figure>
-              <div
-                className="reveal surface-dark col-span-6 flex flex-col justify-between gap-8 rounded-lg bg-wine p-7 sm:col-span-3 sm:p-8"
-                style={step(2)}
-              >
-                <p className="font-serif text-[length:clamp(2.75rem,5vw,3.75rem)] font-semibold leading-none">
-                  20–30 €
-                </p>
-                <p className="text-lg text-cream/85">a persona, in media.</p>
-              </div>
             </div>
           </div>
         </section>
