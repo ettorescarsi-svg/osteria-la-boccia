@@ -1,5 +1,7 @@
 # Roadmap
 
+- [x] Mostrare i nomi completi del menu fornito in grande, senza descrizioni separate, e verificare prezzi e leggibilità
+
 - [x] Togliere la casella "20–30 € a persona, in media." e riordinare le foto della sezione L'osteria
 - [x] Caricare il menu reale (Antipasti, Primi, Secondi, Tartare, Contorni, Dolci) e verificare prezzi e piatti sul sito
 - [x] Sistemare le due "Leggermente scottata": entrambe sono tartare (come su TheFork), spostate nella sezione Tartare e rinominate con il condimento per distinguerle

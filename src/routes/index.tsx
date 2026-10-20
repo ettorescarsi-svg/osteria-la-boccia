@@ -24,6 +24,8 @@ export const Route = createFileRoute("/")({
           "Osteria tipica nel centro di Padova: piatti della tradizione veneta, aperitivi e vino.  Prenota su TheFork.",
       },
       { property: "og:title", content: "Osteria La Boccia — Padova" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: "La tradizione padovana nel cuore di Padova. Prenota un tavolo in Via Soncin, 39.",

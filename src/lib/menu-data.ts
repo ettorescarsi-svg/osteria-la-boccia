@@ -24,19 +24,16 @@ export const MENU: MenuCategory[] = [
     label: "Antipasti",
     dishes: [
       {
-        name: "Antipasto veneziano",
-        desc: "Sarde in saor, baccalà mantecato e alici marinate",
+        name: "Antipasto veneziano sarde in saor baccalà mantecato e alici marinate",
         price: "14,00 €",
         pick: true,
       },
       {
-        name: "Tagliere salumi e formaggi",
-        desc: "Selezione La Boccia",
+        name: "Tagliere salumi e formaggi selezione la boccia",
         price: "15,00 €",
       },
       {
-        name: "Cipolla arrostita",
-        desc: "Crema di caprino, acciughe del Cantabrico e mandorle",
+        name: "Cipolla arrostita crema di caprino acciughe del cantabrico e mandorle",
         price: "13,00 €",
       },
     ],
@@ -46,14 +43,12 @@ export const MENU: MenuCategory[] = [
     label: "Primi",
     dishes: [
       {
-        name: "Paccheri con crema di zucchine",
-        desc: "Basilico e mandorle",
+        name: "Paccheri con crema di zucchine al basilico e mandorle",
         price: "14,00 €",
         veg: true,
       },
       {
-        name: "Paccheri cacio e pepe",
-        desc: "Al profumo di limone",
+        name: "Paccheri cacio & pepe al profumo di limone",
         price: "14,00 €",
         veg: true,
       },
@@ -68,13 +63,11 @@ export const MENU: MenuCategory[] = [
     label: "Secondi",
     dishes: [
       {
-        name: "Faraona arrosto",
-        desc: "Con patate",
+        name: "Faraona arrosto con patate",
         price: "18,00 €",
       },
       {
-        name: "Baccalà alla vicentina",
-        desc: "Con polenta",
+        name: "Baccalà alla vicentina con polenta",
         price: "19,00 €",
         pick: true,
       },
@@ -85,18 +78,15 @@ export const MENU: MenuCategory[] = [
     label: "Le nostre tartare",
     dishes: [
       {
-        name: "La cruda",
-        desc: "Sale, pepe, tabasco, worcestershire, senape, trito di capperi, acciughe, olive, cipolla e tuorlo",
+        name: "La cruda (sale pepe tabacco worchestershire, senape, trito capperi acciughe olive cipolla e tuorlo)",
         price: "18,00 €",
       },
       {
-        name: "La leggermente scottata al caprino",
-        desc: "Con cipolla caramellata e caprino",
+        name: "La leggermente scottata con cipolla caramellata e caprino",
         price: "18,00 €",
       },
       {
-        name: "La leggermente scottata al cacio e guanciale",
-        desc: "Con crema cacio e guanciale croccante",
+        name: "La leggermente scottata con crema cacio e guanciale croccante",
         price: "18,00 €",
       },
     ],
