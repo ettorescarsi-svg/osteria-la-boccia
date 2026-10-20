@@ -8,7 +8,7 @@ import hero3 from "@/assets/hero-3.jpg";
 import { MenuTabs } from "@/components/site/menu-tabs";
 import { QrCode } from "@/components/site/qr-code";
 
-const THEFORK = "https://www.thefork.it/search?cityId=&q=Osteria%20La%20Boccia%20Padova";
+const THEFORK = "https://www.thefork.it/ristorante/enoteca-la-boccia-r818294";
 const MAPS = "https://www.google.com/maps/dir/?api=1&destination=Via+Soncin+39+35141+Padova";
 const MAP_EMBED = "https://www.google.com/maps?q=Via+Soncin+39,+35141+Padova&output=embed";
 const TEL = "tel:+390497353604";
@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Osteria tipica nel centro di Padova: piatti della tradizione veneta, aperitivi e vino. 20–30 € a persona. Prenota su TheFork.",
+          "Osteria tipica nel centro di Padova: piatti della tradizione veneta, aperitivi e vino.  Prenota su TheFork.",
       },
       { property: "og:title", content: "Osteria La Boccia — Padova" },
       {
