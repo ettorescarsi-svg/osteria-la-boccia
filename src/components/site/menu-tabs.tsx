@@ -48,7 +48,7 @@ export function MenuTabs() {
     const active = listRef.current?.querySelector<HTMLElement>('[role="tab"][data-state="active"]');
     if (!bar || !active) return;
     bar.style.transform = `translateX(${active.offsetLeft}px) scaleX(${active.offsetWidth / 100})`;
-    bar.dataset.ready = "true";
+    bar.dataset["ready"] = "true";
   }, []);
 
   useEffect(() => {
